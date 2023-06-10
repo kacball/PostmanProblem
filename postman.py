@@ -2,6 +2,7 @@ import random
 import math
 import turtle
 
+# Constans
 NumberOfPoints = 10
 NumberOfGenerations = 100
 Population = 100
