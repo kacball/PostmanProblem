@@ -3,9 +3,9 @@ import math
 import turtle
 
 # Constans
-NumberOfPoints = 25
-NumberOfGenerations = 1000
-Population = 1000
+NumberOfPoints = 20
+NumberOfGenerations = 200
+Population = 5000
 
 def drawRoute(tour, bool):
     if bool == True:
@@ -59,10 +59,10 @@ class Tour:
 
 # Initialing set of points.
 pointsList = []
-# for i in range(NumberOfPoints):
-#     pointsList.append((round(random.random() * 600 - 300, 2), round(random.random() * 600 - 300, 2)))
 for i in range(NumberOfPoints):
-    pointsList.append((math.floor(i / 5) * 120 - 300, (i % 5) * 120 - 300))
+    pointsList.append((round(random.random() * 600 - 300, 2), round(random.random() * 600 - 300, 2)))
+# for i in range(NumberOfPoints):
+#     pointsList.append((math.floor(i / 5) * 120 - 300, (i % 5) * 120 - 300))
 
 # Calculating distances.
 pointsDistances = [[0 for _ in range(NumberOfPoints)] for _ in range(NumberOfPoints)]
@@ -107,6 +107,7 @@ for i in range(NumberOfGenerations - 1):
     if(populationArray[0].length < bestTour.length):
         print("New best tour " + str(populationArray[0]))
         bestTour = populationArray[0]
+        drawRoute(bestTour, True)
     else:
         print("No new best tour in this generation")
 
