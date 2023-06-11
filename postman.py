@@ -61,8 +61,9 @@ class Tour:
 pointsList = []
 for i in range(NumberOfPoints):
     pointsList.append((round(random.random() * 600 - 300, 2), round(random.random() * 600 - 300, 2)))
+# N = 5 # Number of points on side of a square. (put N squared for NumberOfPoints)
 # for i in range(NumberOfPoints):
-#     pointsList.append((math.floor(i / 5) * 120 - 300, (i % 5) * 120 - 300))
+#     pointsList.append((math.floor(i / N) * 600 / N - 300, (i % N) * 600 / N - 300))
 
 # Calculating distances.
 pointsDistances = [[0 for _ in range(NumberOfPoints)] for _ in range(NumberOfPoints)]
