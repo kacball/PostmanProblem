@@ -7,6 +7,29 @@ NumberOfPoints = 20
 NumberOfGenerations = 200
 Population = 5000
 
+def squares(n):
+    return (n * (n + 1) * (2 * n + 1)) // 6
+
+def randOfPopulation():
+    rand = random.randint(1, squares(Population))
+    low = 1
+    high = Population
+
+    if rand == squares(Population):
+        return 0
+    
+    while True:
+        mid = math.floor((low + high) / 2)
+        if squares(mid) == rand:
+            return Population - mid
+        if squares(mid) > rand:
+            high = mid
+        else:
+            if squares(mid + 1) > rand:
+                return Population - (mid + 1)
+            else:
+                low = mid
+
 def drawRoute(tour, bool):
     if bool == True:
         for i in range(NumberOfPoints):
@@ -95,12 +118,13 @@ for i in range(NumberOfGenerations - 1):
     newPopulationArray = []
     for i in range(Population):
         if i < Population * 4/5:
-            rand = random.randint(1, Population * (Population + 1) * (2 * Population + 1) / 6)
-            cur = 0
-            while rand > math.pow(Population - cur, 2):
-                rand -= math.pow(Population - cur, 2)
-                cur += 1
-            newPopulationArray.append(Tour(populationArray[cur]))
+            # rand = random.randint(1, Population * (Population + 1) * (2 * Population + 1) / 6)
+            # cur = 0
+            # while rand > math.pow(Population - cur, 2):
+            #     rand -= math.pow(Population - cur, 2)
+            #     cur += 1
+            # newPopulationArray.append(Tour(populationArray[cur]))
+            newPopulationArray.append(Tour(populationArray[randOfPopulation()]))
         else:
             newPopulationArray.append(Tour())
     
@@ -108,7 +132,7 @@ for i in range(NumberOfGenerations - 1):
     if(populationArray[0].length < bestTour.length):
         print("New best tour " + str(populationArray[0]))
         bestTour = populationArray[0]
-        drawRoute(bestTour, True)
+        #drawRoute(bestTour, True)
     else:
         print("No new best tour in this generation")
 
