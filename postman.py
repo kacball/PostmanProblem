@@ -3,7 +3,7 @@ import math
 import turtle
 
 # Constans
-NumberOfPoints = 30
+NumberOfPoints = 50
 NumberOfGenerations = 100
 Population = 10000
 
@@ -39,6 +39,15 @@ def drawRoute(tour, bool):
     pen.down()
     for i in range(NumberOfPoints):
         pen.goto(pointsList[tour.points[(i + 1) % NumberOfPoints]])
+
+def greedyRoute(points):
+    numOfPoints = points.length()
+    unvisitedPoints = numOfPoints * [0]
+    route = numOfPoints * [0]
+    unvisitedPoints[0] = 1
+    #for i in range(0, numOfPoints - 1):
+        # TODO
+    return 0
 
 
 class Tour:
@@ -139,8 +148,6 @@ for i in range(NumberOfGenerations - 1):
 
 drawRoute(bestTour, True)
 print("Best tour:" + str(bestTour))
-
-
 
 pen.hideturtle()
 
