@@ -3,9 +3,9 @@ import math
 import turtle
 
 # Constans
-NumberOfPoints = 20
-NumberOfGenerations = 200
-Population = 5000
+NumberOfPoints = 30
+NumberOfGenerations = 100
+Population = 10000
 
 def squares(n):
     return (n * (n + 1) * (2 * n + 1)) // 6
@@ -84,7 +84,7 @@ class Tour:
 pointsList = []
 for i in range(NumberOfPoints):
     pointsList.append((round(random.random() * 600 - 300, 2), round(random.random() * 600 - 300, 2)))
-# N = 5 # Number of points on side of a square. (put N squared for NumberOfPoints)
+# N = 4 # Number of points on side of a square. (put N squared for NumberOfPoints)
 # for i in range(NumberOfPoints):
 #     pointsList.append((math.floor(i / N) * 600 / N - 300, (i % N) * 600 / N - 300))
 
@@ -96,6 +96,7 @@ for i in range(NumberOfPoints):
 
 # Turtle making points.
 pen = turtle.Turtle()
+pen.speed(0)
 pen.up()
 for i in range(NumberOfPoints):
     pen.goto(pointsList[i][0], pointsList[i][1])
