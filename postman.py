@@ -7,25 +7,28 @@ NumberOfPoints = 50
 NumberOfGenerations = 100
 Population = 10000
 
-def squares(n):
+# Returns 1^2 + 2^2 + 3^2 + ... n^2.
+def sumOfSquares(n):
     return (n * (n + 1) * (2 * n + 1)) // 6
 
+# Returns random member of population where
+# fitter have better chances of being chose.
 def randOfPopulation():
-    rand = random.randint(1, squares(Population))
+    rand = random.randint(1, sumOfSquares(Population))
     low = 1
     high = Population
 
-    if rand == squares(Population):
+    if rand == sumOfSquares(Population):
         return 0
     
     while True:
         mid = math.floor((low + high) / 2)
-        if squares(mid) == rand:
+        if sumOfSquares(mid) == rand:
             return Population - mid
-        if squares(mid) > rand:
+        if sumOfSquares(mid) > rand:
             high = mid
         else:
-            if squares(mid + 1) > rand:
+            if sumOfSquares(mid + 1) > rand:
                 return Population - (mid + 1)
             else:
                 low = mid
@@ -40,6 +43,7 @@ def drawRoute(tour, bool):
     for i in range(NumberOfPoints):
         pen.goto(pointsList[tour.points[(i + 1) % NumberOfPoints]])
 
+#TODO
 def greedyRoute(points):
     numOfPoints = points.length()
     unvisitedPoints = numOfPoints * [0]
@@ -52,25 +56,27 @@ def greedyRoute(points):
 
 class Tour:
     def __init__(self, arg=None):
-        if arg is None:
+
+        if arg is None: # Totally random tour.
             self.points = [0] * NumberOfPoints
             for i in range(NumberOfPoints):
                 valueNotSet = True
                 while valueNotSet:
-                    goodNumber = True
+                    potentialNewVertex = True
                     newValue = random.randint(0, NumberOfPoints - 1)
                     for j in range(i):
                         if newValue == self.points[j]:
-                            goodNumber = False
+                            potentialNewVertex = False
                 
-                    if goodNumber:
+                    if potentialNewVertex:
                         self.points[i] = newValue
                         valueNotSet = False
             self.length = 0
             for i in range(NumberOfPoints):
                 self.length += pointsDistances[self.points[i]][self.points[(i + 1) % NumberOfPoints]]
             self.length = round(self.length, 2)
-        else:
+        
+        else: # Tour based on other tour (randomly changed some vertexes).
             self.points = [0] * NumberOfPoints
             for i in range(NumberOfPoints):
                 self.points[i] = arg.points[i]
@@ -127,15 +133,9 @@ for i in range(NumberOfGenerations - 1):
     print("Generation "+ str(i + 2))
     newPopulationArray = []
     for i in range(Population):
-        if i < Population * 4/5:
-            # rand = random.randint(1, Population * (Population + 1) * (2 * Population + 1) / 6)
-            # cur = 0
-            # while rand > math.pow(Population - cur, 2):
-            #     rand -= math.pow(Population - cur, 2)
-            #     cur += 1
-            # newPopulationArray.append(Tour(populationArray[cur]))
+        if i < Population * 4/5: # Tours based of current population.
             newPopulationArray.append(Tour(populationArray[randOfPopulation()]))
-        else:
+        else: # Totally random tours.
             newPopulationArray.append(Tour())
     
     populationArray = sorted(newPopulationArray, key=lambda x : x.length)
