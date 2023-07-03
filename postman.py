@@ -3,9 +3,9 @@ import math
 import turtle
 
 # Constans
-NumberOfPoints = 50
+NumberOfPoints = 15
 NumberOfGenerations = 100
-Population = 10000
+Population = 2000
 
 # Returns 1^2 + 2^2 + 3^2 + ... n^2.
 def sumOfSquares(n):
